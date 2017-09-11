@@ -1,0 +1,33 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Lorem ipsum dolor sit amet",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis suscipit, iure asperiores consectetur excepturi necessitatibus voluptatibus est voluptatum? Sequi accusamus quae sapiente alias dolorem, suscipit natus eaque necessitatibus, fugiat ab.",
+      "user_id": null,
+    },
+    {
+        "id": 2,
+        "title": "Florida launches huge relief operation",
+        "text": "The huge storm weakened as it moved up the state's western coast overnight but Miami and other urban areas have been battered and flooded. \n In the islands of the Florida Keys, the local emergency manager has warned of a looming \"humanitarian crisis\". \n Media reports link at least four deaths to the storm. \n Irma, which hit Florida as a category four hurricane on Sunday, has now been downgraded to a tropical storm.",
+        "user_id": null,
+    }
+  ],
+
+  "comments": [
+    {
+        "id": 1,
+        "post_id": 2,
+        "related_to": null,
+        "user_id": null,
+        "text": "Oh my gosh :c"
+    },
+    {
+        "id": 2,
+        "post_id": 2,
+        "related_to": 1,
+        "user_id": null,
+        "text": "Is that all whatcha can say оО"
+    }
+  ]
+}
