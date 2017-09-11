@@ -1,5 +1,4 @@
 /node_modules
-/docker-compose.yml
 /package-lock.json
 /vue
 /.gulp-scss-cache
