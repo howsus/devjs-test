@@ -1,0 +1,37 @@
+{
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha --recursive --watch tests/",
+    "docker-up": "docker-compose up -d",
+    "docker-down": "docker-compose down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kschelkanov/devjs-test.git"
+  },
+  "author": "Konstantin Shchelkanov",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kschelkanov/devjs-test/issues"
+  },
+  "homepage": "https://github.com/kschelkanov/devjs-test#readme",
+  "devDependencies": {
+    "aliasify": "^2.1.0",
+    "babelify": "^7.3.0",
+    "chai": "^4.1.2",
+    "gulp": "^3.9.1",
+    "gulp-browserify": "^0.5.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "mocha": "^3.5.2",
+    "vueify": "^9.4.1"
+  },
+  "dependencies": {
+    "bulma": "^0.5.1",
+    "vue-router": "^2.7.0",
+    "vuex": "^2.4.0"
+  }
+}
