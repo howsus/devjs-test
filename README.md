@@ -15,9 +15,9 @@ The solution of the problem  is quite simple, make posts' fingerprint invisible 
 
 To get the app work:
  1) Install all dependencies - npm install
- 2) change server in src/js/config.js to "http://localhost:8585" (line number 3)
- 3) compile the JavaScript scripts - gulp
+ 2) Change server in src/js/config.js to "http://localhost:8585" (line number 3)
+ 3) Compile the JavaScript scripts - gulp
  4) Run the REST API server - json-server --watch db.json --port=8585 
- 5) Run web-server (I used apache and I uploaded the docker file to set it up quickly) - npm run docker-up
- 6) go to http://localhost 
- 7) enjoy :)
+ 5) Run web-server (I used apache and I uploaded the docker compose file to set it up quickly) - npm run docker-up
+ 6) Go to http://localhost 
+ 7) Enjoy :)
