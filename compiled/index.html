@@ -1,1 +1,245 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DevJS - Pseudo Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+    <div id="app" class="container" v-cloak>
+        <logo inline-template v-cloak>
+            <div class="logo-box">
+                <transition leave-active-class="animated fadeOut">
+                    <div class="logo-background" v-if="opened"></div>
+                </transition>
+                <figure class="logo image is-128x128">
+                    <img src="https://vuejs.org/images/logo.png">
+                </figure>
+                <p class="text" v-if="opened">Wait! The page is being loaded.</p>
+            </div>
+        </logo>
+        
+        <div class="container">
+            <router-view></router-view>   
+        </div>
+    </div>
+
+    <footer class="footer">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <a class="link is-info" href="https://github.com/kschelkanov">GitHub</a>
+            </div>
+            <div class="level-item has-text-centered">
+                <a class="link is-info" href="https://www.facebook.com/profile.php?id=100005220690268">Facebook</a>
+            </div>
+            <div class="level-item has-text-centered">
+                <a class="link is-info" href="https://www.instagram.com/jquery.master/">Instragram</a>
+            </div>
+        </nav>
+    </footer>
+
+    <script type="text/x-template" id="post-create-template">
+        <div class="cards">
+            <form class="column">
+                <div class="text">Create an awesome post.</div>
+                <article class="message is-danger" v-if="errors.length">
+                    <div class="message-body">
+                        <ul>
+                            <li v-for="error in errors">{{ error }}</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <div class="field">
+                    <label class="label">Title</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Awesome post" v-model="form.title">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Text</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Awesome content" v-model="form.text"></textarea>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button :class="{'is-loading': loading}" :disabled="loading" class="button is-primary vue-btn" @click.prevent="post">Create a post</button>
+                    </div>
+                    <div class="control">
+                        <router-link to="/" class="button is-link">Cancel</router-link>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="feed-template">
+        <div class="cards">
+            <router-link to="/post/create" class="button is-primary vue-btn" v-if="loaded && state.posts.length">Create a new post</router-link>
+
+            <div class="text has-text-centered" v-if="loaded && !state.posts.length">
+                <p>The feed is empty. :c</p>
+                <router-link to="/post/create" class="button is-primary vue-btn">Create a first post</router-link>
+            </div>
+
+            <div class="card" v-for="post in state.posts">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{ post.title }}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        {{ post.text }}
+                    </div>
+                </div>
+                <footer class="card-footer">
+                    <router-link :to="`/post/${post.id}`" class="card-footer-item">See the full post</router-link>
+                </footer>
+            </div>
+
+            <div class="text has-text-centered" v-if="busy">
+                Loading more...
+            </div>
+
+            <p class="has-text-centered" v-if="!busy && state.posts.length !== state.last_total_records">
+                <button class="button is-link load-more-btn" @click="nextPage">Load more posts...</button>
+            </p>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="post-template">
+        <div class="cards" v-if="loaded">
+            <router-link to="/"><button class="button is-link">Back to home page.</button></router-link>
+
+            <article class="message is-danger" v-if="form.errors.length">
+                <div class="message-body">
+                    <ul>
+                        <li v-for="error in form.errors">{{ error }}</li>
+                    </ul>
+                </div>
+            </article>
+
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title" v-if="seeable">{{ post.title }}</p>
+                    <div class="field" v-if="editable" style="width: 100%">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Awesome post" v-model="form.title">
+                        </div>
+                    </div>
+                </header>
+
+                <div class="card-content">
+                    <div class="content" v-if="seeable">{{ post.text }}</div>
+                    <div class="field" v-if="editable">
+                        <div class="control">
+                            <textarea class="textarea" placeholder="Type your message..." v-model="form.text"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer" v-if="belongsToMe">
+                    <template v-if="seeable">
+                        <a href="#" @click.prevent="mode = 'edit'" class="card-footer-item">Edit</a>
+                        <a href="#" @click.prevent="remove" class="card-footer-item">Delete</a>
+                    </template>
+                    <a href="#" v-if="editable" @click.prevent="edit" class="card-footer-item">Save</a> 
+                </div>
+
+                <div class="card-footer">
+                    <div class="column">
+                        <comment-create-form :postId="post.id" :fingerprint="userId" @commentCreated="commentCreated"></comment-create-form>
+                    </div>
+                </div>
+
+                <footer class="card-footer">
+                    <div class="column">
+                        <comment v-for="comment in comments"
+                            :fingerprint="userId"
+                            :key="comment.id"
+                            :comment="comment"
+                            @commentChanged="commentChanged"
+                            @commentDeleted="commentDeleted">
+                        </comment>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="message-template">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ comment.name }}</strong>
+                        <br>
+                        <template v-if="seeable">
+                            {{ comment.text }}
+                        </template>
+                        <div class="field" v-if="editable">
+                            <div class="control">
+                                <textarea
+                                    :class="{'is-danger': form.error}"
+                                    @keydown="submit"
+                                    @keyup.ctrl.67="clear"
+                                    class="textarea"
+                                    placeholder="Type your message..."
+                                    v-model="form.text">
+                                </textarea>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="media-right" v-if="belongsToMe">
+                <span class="icon is-small">
+                    <span class="fa-stack">
+                        <button :class="{'is-loading': updating}"
+                            :disable="updating"
+                            class="button is-small"
+                            @click.prevent="mode = 'edit'">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button :class="{'is-loading': deleting}"
+                            :disable="deleting"
+                            class="button is-small"
+                            @click.prevent="remove">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </span>
+            </div>
+        </article>
+    </script>
+
+    <script type="text/x-template" id="message-create-template">
+        <div v-if="rendered">
+            <article class="message is-danger" v-if="errors.length">
+                <div class="message-body">
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                </div>
+            </article>
+            <div class="field">
+                <div class="control">
+                    <input class="input" type="text" placeholder="Your name" v-model="form.name">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <textarea class="textarea" placeholder="Type your message..." v-model="form.text"></textarea>
+                </div>
+            </div>
+            <button class="button is-primary" :class="{'is-loading': busy}" :disable="busy" @click.prevent="submit">Send</button>
+        </div>
+    </script>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

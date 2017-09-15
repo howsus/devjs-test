@@ -1,33 +1,74 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "Lorem ipsum dolor sit amet",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perspiciatis suscipit, iure asperiores consectetur excepturi necessitatibus voluptatibus est voluptatum? Sequi accusamus quae sapiente alias dolorem, suscipit natus eaque necessitatibus, fugiat ab.",
-      "user_id": null,
+      "title": "Hello World",
+      "text": "Hello World changed once",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 1
     },
     {
-        "id": 2,
-        "title": "Florida launches huge relief operation",
-        "text": "The huge storm weakened as it moved up the state's western coast overnight but Miami and other urban areas have been battered and flooded. \n In the islands of the Florida Keys, the local emergency manager has warned of a looming \"humanitarian crisis\". \n Media reports link at least four deaths to the storm. \n Irma, which hit Florida as a category four hurricane on Sunday, has now been downgraded to a tropical storm.",
-        "user_id": null,
+      "title": "Awesome post",
+      "text": "Awesome content",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 2
+    },
+    {
+      "title": "Super Post",
+      "text": "Super pooper content",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 3
+    },
+    {
+      "title": "Notidk",
+      "text": "asdlkasd",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 4
+    },
+    {
+      "title": "Another post",
+      "text": "bla bla bla",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 5
+    },
+    {
+      "title": "Need greater than 10 posts :c",
+      "text": "asdasdczxzxc",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 6
+    },
+    {
+      "title": "And another one",
+      "text": "DJ Khaled",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 7
+    },
+    {
+      "title": "Bless up",
+      "text": "Another one",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 8
+    },
+    {
+      "title": "I need 3 yet",
+      "text": "Hello",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "id": 9
     }
   ],
-
   "comments": [
     {
-        "id": 1,
-        "post_id": 2,
-        "related_to": null,
-        "user_id": null,
-        "text": "Oh my gosh :c"
+      "id": 1,
+      "postId": 1,
+      "name": "Igor",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "text": "Hello there!"
     },
     {
-        "id": 2,
-        "post_id": 2,
-        "related_to": 1,
-        "user_id": null,
-        "text": "Is that all whatcha can say оО"
+      "name": "Simon",
+      "text": "The best site ever!",
+      "userId": "7865b37c66516cf0394f23bb55415c7b",
+      "postId": 1,
+      "id": 2
     }
   ]
 }

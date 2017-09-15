@@ -1,0 +1,101 @@
+@import "bulma";
+
+.vue-btn {
+    background-color: #41b883;
+}
+
+.vue-btn:hover {
+    background-color: #4ac790;
+}
+
+.cards {
+    margin: 0px auto;
+    max-width: 684px;
+    .card {
+        margin-top: 35px;
+    }
+    .text {
+        color: #454545;
+        font-size: 18pt;
+        font-weight: 200;
+        margin-top: 35px;
+        .button {
+            margin-top: 35px;
+        }
+    }
+    .load-more-btn {
+        margin-top: 35px;
+    }
+}
+
+.logo-box {
+    position: relative;
+    .logo-background {
+        overflow: hidden;
+        position: fixed;
+        margin: 0px;
+        padding: 0px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255, 1);
+        z-index: 2;
+    }
+    .logo {
+        position: relative;
+        width: 125px;
+        margin: 0px auto;
+        margin-top: 35px;
+        z-index: 3;
+    }
+    .text {
+        position: inherit;
+        z-index: 3;
+        font-weight: 300;
+        text-align: center;
+        font-size: 24pt;
+        margin-top: 100px;
+        color: #353535;
+    }
+}
+
+.footer {
+    margin-top: 35px;
+}
+
+.animated {
+  animation-duration: .2s;
+  animation-fill-mode: both;
+}
+
+.animated.infinite {
+  animation-iteration-count: infinite;
+}
+
+.animated.hinge {
+  animation-duration: 2s;
+}
+
+.animated.flipOutX,
+.animated.flipOutY,
+.animated.bounceIn,
+.animated.bounceOut {
+  animation-duration: .75s;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}

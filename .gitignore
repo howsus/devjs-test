@@ -3,3 +3,5 @@
 /vue
 /.gulp-scss-cache
 /.sass-cache
+/css/app.css
+/js/app.js
